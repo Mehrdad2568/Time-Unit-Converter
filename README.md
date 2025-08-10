@@ -1,18 +1,18 @@
-# ⏱ Time Unit Converter
+# Time Unit Converter
 
 A simple and efficient tool for converting between different time units.  
 Built using **Python** and **Tkinter**.
 
-## 📸 Screenshot
+## Screenshot
 ![Main Window](https://i.imgur.com/c25S0Am.png)
 
-## ✨ Features
+## Features
 - Convert between years, months, weeks, days, hours, minutes, seconds, and milliseconds
 - **Cumulative mode** to sum multiple conversions until cleared
 - Clear and simple interface
 - Handy **keyboard shortcuts** for faster use
 
-## 🚀 Installation
+## Installation
 
 ### Option 1 — Run the executable (recommended)
 1. Download the latest release from the [Releases](../../releases) page.
