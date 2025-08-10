@@ -31,7 +31,6 @@ _No Python installation is required._
 4. Run the app:
    ```bash
    python main.py
-
    
 | Action            | Shortcut       |
 | ----------------- | -------------- |
