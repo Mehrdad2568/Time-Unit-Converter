@@ -41,3 +41,6 @@ _No Python installation is required._
 | View Help         | `Ctrl + H`     |
 | About             | `Ctrl + A`     |
 
+## License
+
+This project is licensed under the [MIT License](LICENSE.txt) – see the LICENSE file for details.
