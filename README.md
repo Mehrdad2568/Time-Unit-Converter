@@ -26,6 +26,7 @@ _No Python installation is required._
 2. Clone the repository:
    ```bash
    git clone https://github.com/Mehrdad2568/Time-Unit-Converter.git
+   cd time-unit-converter
 3. (Usually Tkinter is already included with Python, no extra packages needed.)
 4. Run the app:
    ```bash
