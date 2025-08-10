@@ -47,7 +47,7 @@ def about_page(*args):
     about_win.resizable(0, 0)
     about_text = (
     "Time Unit Converter\n"
-    "Version 1.1.1.1\n"
+    "Version 1.0.0.0\n"
     "© 2025 Mehrdad Farzane\n\n"
     "A simple and efficient tool for converting between different time units.\n"
     "Built using Python and Tkinter."
