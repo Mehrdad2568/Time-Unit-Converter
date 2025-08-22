@@ -12,6 +12,8 @@ default_font = font.nametofont("TkDefaultFont")
 root.option_add("*Font", default_font)
 menu_bar = Menu()
 help_menu = Menu(menu_bar, tearoff=0)
+
+
 def help_page(*args):
     '''
     Creates a help page when the user request it to be made.
@@ -44,6 +46,8 @@ def help_page(*args):
     help_win.grab_set()
     help_win.wait_window()
 help_menu.add_command(label='View Help', command=help_page)
+
+
 def about_page(*args):
     '''
     Creates an about page when the user request it to be made.
@@ -62,6 +66,8 @@ def about_page(*args):
     about_win.transient(root)
     about_win.grab_set()
     about_win.wait_window()
+
+
 help_menu.add_command(label='About', command=about_page)
 menu_bar.add_cascade(label="Help", menu=help_menu)
 root.config(menu=menu_bar)
@@ -110,6 +116,8 @@ for time in times[5:10]:
     radio_column += 1
     ttk.Radiobutton(text=time, value=time, variable=output_var).grid(row=10, column=radio_column)
 res = 0
+
+
 def isfloat(value):
     '''
     Checks if the value is float or not.
@@ -123,6 +131,8 @@ inputs = (
     year_input, month_input, week_input, day_input,
     hour_input, minute_input, second_input, millisecond_input
     )
+
+
 def digit_rounder(value):
     '''
     Turns the value to an int when the number doesn't have any decimal fractional parts.
@@ -146,11 +156,15 @@ DIVISION_TABLE = {
         'Second': s,
         'Millisecond': ms,
     }
+
+
 def multiplier_units(choice):
     '''
     Gets the requested multiplier (choice) from the DIVISION_TABLE.
     '''
     return DIVISION_TABLE.get(choice)
+
+
 def calculation(*args):
     '''
     Calculates the result using the user's inputs.
@@ -181,6 +195,8 @@ def calculation(*args):
         output_text.delete(1.0, END)
         output_text.insert(END, "Please enter float numbers.")
     output_text.config(state=DISABLED)
+
+
 def validate_entry(event):
     '''
     Validate the entries' inputs by using the isfloat function.
@@ -188,6 +204,8 @@ def validate_entry(event):
     widget = event.widget
     widget.configure(style="Valid.TEntry" if isfloat(widget.get()) else "Invalid.TEntry")
     toggle_calculate_button()
+
+
 def res_clearer(*args):
     '''
     Clears the output as well as the entries.
@@ -205,6 +223,8 @@ calculate_button.grid(column=1, columnspan=4, pady=3, padx=3)
 checkbox_var = IntVar(value=0)
 ttk.Checkbutton(text='Cumulative', variable=checkbox_var).grid(row=11, padx=3)
 calculate_button.config(state=DISABLED)
+
+
 def toggle_calculate_button(*args):
     '''
     Disable or enable the "Calculate" button based on the validity of the user's inputs.
@@ -225,11 +245,15 @@ root.bind('<Control-H>', help_page)
 root.bind('<Control-h>', help_page)
 root.bind('<Control-A>', about_page)
 root.bind('<Control-a>', about_page)
+
+
 def checkbox_shortcut(*args):
     '''
     Changes the state of the calculation mode check box when the user uses the shortcut. 
     '''
     checkbox_var.set(not checkbox_var.get())
+
+    
 root.bind('<Control-M>', checkbox_shortcut)
 root.bind('<Control-m>', checkbox_shortcut)
 output_var.trace_add("write", toggle_calculate_button)
