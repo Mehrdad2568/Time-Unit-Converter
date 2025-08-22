@@ -112,7 +112,7 @@ for time in times[5:10]:
 res = 0
 def isfloat(value):
     '''
-    Checks if the user's inputs are float or not.
+    Checks if the value is float or not.
     '''
     try:
         float(value)
@@ -125,7 +125,7 @@ inputs = (
     )
 def digit_rounder(value):
     '''
-    Turns the output to an int when the number doesn't have any decimal value.
+    Turns the value to an int when the number doesn't have any decimal fractional parts.
     '''
     return int(value) if value % 1 == 0 else value
 ms = 1
@@ -148,7 +148,7 @@ DIVISION_TABLE = {
     }
 def multiplier_units(choice):
     '''
-    Gets the requested multiplier from the DIVISION_TABLE.
+    Gets the requested multiplier (choice) from the DIVISION_TABLE.
     '''
     return DIVISION_TABLE.get(choice)
 def calculation(*args):
@@ -183,7 +183,7 @@ def calculation(*args):
     output_text.config(state=DISABLED)
 def validate_entry(event):
     '''
-    Validate the user entry inputs.
+    Validate the entries' inputs by using the isfloat function.
     '''
     widget = event.widget
     widget.configure(style="Valid.TEntry" if isfloat(widget.get()) else "Invalid.TEntry")
