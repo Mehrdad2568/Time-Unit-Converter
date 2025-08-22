@@ -13,6 +13,9 @@ root.option_add("*Font", default_font)
 menu_bar = Menu()
 help_menu = Menu(menu_bar, tearoff=0)
 def help_page(*args):
+    '''
+    Creates a help page when the user request it to be made.
+    '''
     help_win = Toplevel(root)
     help_win.title('Help')
     help_win.resizable(0, 0)
@@ -42,6 +45,9 @@ def help_page(*args):
     help_win.wait_window()
 help_menu.add_command(label='View Help', command=help_page)
 def about_page(*args):
+    '''
+    Creates an about page when the user request it to be made.
+    '''
     about_win = Toplevel(root)
     about_win.title('About')
     about_win.resizable(0, 0)
@@ -105,6 +111,9 @@ for time in times[5:10]:
     ttk.Radiobutton(text=time, value=time, variable=output_var).grid(row=10, column=radio_column)
 res = 0
 def isfloat(value):
+    '''
+    Checks if the user's inputs are float or not.
+    '''
     try:
         float(value)
         return True
@@ -115,6 +124,9 @@ inputs = (
     hour_input, minute_input, second_input, millisecond_input
     )
 def digit_rounder(value):
+    '''
+    Turns the output to an int when the number doesn't have any decimal value.
+    '''
     return int(value) if value % 1 == 0 else value
 ms = 1
 s  = ms * 1000
@@ -134,9 +146,15 @@ DIVISION_TABLE = {
         'Second': s,
         'Millisecond': ms,
     }
-def divisor_units(choice):
+def multiplier_units(choice):
+    '''
+    Gets the requested multiplier from the DIVISION_TABLE.
+    '''
     return DIVISION_TABLE.get(choice)
 def calculation(*args):
+    '''
+    Calculates the result using the user's inputs.
+    '''
     clear_button.config(state=NORMAL)
     global res
     if checkbox_var.get() == 0:
@@ -148,11 +166,11 @@ def calculation(*args):
         )
         res += millisecond_data + (second_data * s) + (minute_data * m) + (hour_data * h) + (day_data * d) + (week_data * w) + (month_data * month_radio_var.get() * d) + (year_data * year_radio_var.get() * d)
         choice = output_var.get()
-        divisor = divisor_units(choice)
-        if not divisor:
+        multiplier = multiplier_units(choice)
+        if not multiplier:
             output = 'Please select an output form.'
         else:
-            output = digit_rounder(res / divisor)
+            output = digit_rounder(res / multiplier)
         output_text.delete(1.0, END)
         try:
             output_text.insert(END, f"{output:,} {output_var.get()+('' if output == 1 else 's')}")
@@ -164,10 +182,16 @@ def calculation(*args):
         output_text.insert(END, "Please enter float numbers.")
     output_text.config(state=DISABLED)
 def validate_entry(event):
+    '''
+    Validate the user entry inputs.
+    '''
     widget = event.widget
     widget.configure(style="Valid.TEntry" if isfloat(widget.get()) else "Invalid.TEntry")
     toggle_calculate_button()
 def res_clearer(*args):
+    '''
+    Clears the output as well as the entries.
+    '''
     global res
     res = 0
     for inp in inputs:
@@ -182,6 +206,9 @@ checkbox_var = IntVar(value=0)
 ttk.Checkbutton(text='Cumulative', variable=checkbox_var).grid(row=11, padx=3)
 calculate_button.config(state=DISABLED)
 def toggle_calculate_button(*args):
+    '''
+    Disable or enable the "Calculate" button based on the validity of the user's inputs.
+    '''
     if output_var.get() and all(isfloat(inp.get()) or inp.get() == '' for inp in inputs):
         calculate_button.config(state=NORMAL)
     else:
@@ -199,6 +226,9 @@ root.bind('<Control-h>', help_page)
 root.bind('<Control-A>', about_page)
 root.bind('<Control-a>', about_page)
 def checkbox_shortcut(*args):
+    '''
+    Changes the state of the calculation mode check box when the user uses the shortcut. 
+    '''
     checkbox_var.set(not checkbox_var.get())
 root.bind('<Control-M>', checkbox_shortcut)
 root.bind('<Control-m>', checkbox_shortcut)
