@@ -16,7 +16,7 @@ help_menu = Menu(menu_bar, tearoff=0)
 
 def help_page(*args):
     '''
-    Creates a help page when the user request it to be made.
+    Creates a help page when the user requests it to be made.
     '''
     help_win = Toplevel(root)
     help_win.title('Help')
@@ -50,7 +50,7 @@ help_menu.add_command(label='View Help', command=help_page)
 
 def about_page(*args):
     '''
-    Creates an about page when the user request it to be made.
+    Creates an about page when the user requests it to be made.
     '''
     about_win = Toplevel(root)
     about_win.title('About')
