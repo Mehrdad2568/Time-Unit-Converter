@@ -50,14 +50,14 @@ help_menu.add_command(label='View Help', command=help_page)
 
 def about_page(*args):
     '''
-    Creates an about page when the user requests it to be made.
+    Creates an about page when the user request it to be made.
     '''
     about_win = Toplevel(root)
     about_win.title('About')
     about_win.resizable(0, 0)
     about_text = (
     "Time Unit Converter\n"
-    "Version 1.0.0.0\n"
+    "Version 1.0.0.1\n"
     "© 2025 Mehrdad Farzane\n\n"
     "A simple and efficient tool for converting between different time units.\n"
     "Built using Python and Tkinter."
@@ -133,11 +133,6 @@ inputs = (
     )
 
 
-def digit_rounder(value):
-    '''
-    Turns the value to an int when the number doesn't have any decimal fractional parts.
-    '''
-    return int(value) if value % 1 == 0 else value
 ms = 1
 s  = ms * 1000
 m = 60 * s
@@ -158,13 +153,6 @@ DIVISION_TABLE = {
     }
 
 
-def multiplier_units(choice):
-    '''
-    Gets the requested multiplier (choice) from the DIVISION_TABLE.
-    '''
-    return DIVISION_TABLE.get(choice)
-
-
 def calculation(*args):
     '''
     Calculates the result using the user's inputs.
@@ -180,11 +168,11 @@ def calculation(*args):
         )
         res += millisecond_data + (second_data * s) + (minute_data * m) + (hour_data * h) + (day_data * d) + (week_data * w) + (month_data * month_radio_var.get() * d) + (year_data * year_radio_var.get() * d)
         choice = output_var.get()
-        multiplier = multiplier_units(choice)
+        multiplier = (lambda choice: DIVISION_TABLE.get(choice))(choice)
         if not multiplier:
             output = 'Please select an output form.'
         else:
-            output = digit_rounder(res / multiplier)
+            output = (lambda value: int(value) if value % 1 == 0 else value)(res / multiplier)
         output_text.delete(1.0, END)
         try:
             output_text.insert(END, f"{output:,} {output_var.get()+('' if output == 1 else 's')}")
@@ -246,16 +234,9 @@ root.bind('<Control-h>', help_page)
 root.bind('<Control-A>', about_page)
 root.bind('<Control-a>', about_page)
 
-
-def checkbox_shortcut(*args):
-    '''
-    Changes the state of the calculation mode check box when the user uses the shortcut. 
-    '''
-    checkbox_var.set(not checkbox_var.get())
-
     
-root.bind('<Control-M>', checkbox_shortcut)
-root.bind('<Control-m>', checkbox_shortcut)
+root.bind('<Control-M>', lambda _: checkbox_var.set(not checkbox_var.get()))
+root.bind('<Control-m>', lambda _: checkbox_var.set(not checkbox_var.get()))
 output_var.trace_add("write", toggle_calculate_button)
 for inp in inputs:
     inp.bind("<KeyRelease>", validate_entry)
