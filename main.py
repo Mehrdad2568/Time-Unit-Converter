@@ -57,7 +57,7 @@ def about_page(*args):
     about_win.resizable(0, 0)
     about_text = (
     "Time Unit Converter\n"
-    "Version 1.0.0.1\n"
+    "Version 1.0.0.2\n"
     "© 2025 Mehrdad Farzane\n\n"
     "A simple and efficient tool for converting between different time units.\n"
     "Built using Python and Tkinter."
@@ -115,7 +115,7 @@ radio_column = -1
 for time in times[5:10]:
     radio_column += 1
     ttk.Radiobutton(text=time, value=time, variable=output_var).grid(row=10, column=radio_column)
-res = 0
+res_var = DoubleVar(value=0)
 
 
 def isfloat(value):
@@ -157,22 +157,24 @@ def calculation(*args):
     '''
     Calculates the result using the user's inputs.
     '''
+    res = 0
     clear_button.config(state=NORMAL)
-    global res
-    if checkbox_var.get() == 0:
-        res = 0
     output_text.config(state=NORMAL)
     try:
         year_data, month_data, week_data, day_data, hour_data, minute_data, second_data, millisecond_data = (
             0 if inp.get() == '' else float(inp.get()) for inp in inputs
         )
         res += millisecond_data + (second_data * s) + (minute_data * m) + (hour_data * h) + (day_data * d) + (week_data * w) + (month_data * month_radio_var.get() * d) + (year_data * year_radio_var.get() * d)
+        if checkbox_var.get() == 0:
+            res_var.set(res)
+        else:
+            res_var.set(res_var.get() + res)
         choice = output_var.get()
         multiplier = (lambda choice: DIVISION_TABLE.get(choice))(choice)
         if not multiplier:
             output = 'Please select an output form.'
         else:
-            output = (lambda value: int(value) if value % 1 == 0 else value)(res / multiplier)
+            output = int(res_var.get() / multiplier) if (res_var.get() / multiplier) % 1 == 0 else res_var.get() / multiplier
         output_text.delete(1.0, END)
         try:
             output_text.insert(END, f"{output:,} {output_var.get()+('' if output == 1 else 's')}")
@@ -198,8 +200,7 @@ def res_clearer(*args):
     '''
     Clears the output as well as the entries.
     '''
-    global res
-    res = 0
+    res_var.set(0)
     for inp in inputs:
         inp.delete(0, END)
     output_text.config(state=NORMAL)
