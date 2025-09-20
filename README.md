@@ -11,7 +11,7 @@ Built using **Python** and **Tkinter**.
 - **Cumulative mode** to sum multiple conversions until cleared
 - Clear and simple interface
 - Handy **keyboard shortcuts** for faster use
-- change app language on the fly (English / فارسی)
+- Change app language on the fly (English / فارسی)
 
 ## Installation
 
