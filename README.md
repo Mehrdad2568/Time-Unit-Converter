@@ -4,7 +4,7 @@ A simple and efficient tool for converting between different time units.
 Built using **Python** and **Tkinter**.
 
 ## Screenshot
-![Main Window](https://imgur.com/6HyBLXk)
+![Main Window](https://imgur.com/6HyBLXk.png)
 
 ## Features
 - Convert between years, months, weeks, days, hours, minutes, seconds, and milliseconds
